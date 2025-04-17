@@ -216,3 +216,7 @@ add_to_apps_screen = [
 		"has_permission": "builder.api.check_app_permission",
 	}
 ]
+
+fixtures = [
+	"Builder Page",
+]
