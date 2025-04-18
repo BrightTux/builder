@@ -1,0 +1,24 @@
+name: Sync Fork with Upstream
+
+on:
+  schedule:
+    - cron: '0 0 */15 * *'  # This runs the action at midnight every 15 days.
+  workflow_dispatch:  # Allows manual triggering of the workflow.
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: BrightTux/builder
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync with upstream
+        run: |
+          git remote add upstream https://github.com/frappe/builder.git
+          git fetch upstream
+          git checkout feat/custom_fe 
+          git merge upstream/develop
+          git push origin feat/custom_fe 
